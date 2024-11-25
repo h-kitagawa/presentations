@@ -1,0 +1,230 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hk-math-abbrev}[%
+  2024-11-25 Unicode input of several math symbols
+]
+% 完全に個人的なもの。記号の取捨選択も独断と偏見による
+
+\RequirePackage{ifluatex,lualatex-math}
+\ifluatex\else
+  \PackageError{hk-math-abbrev}{This  package  requires LuaTeX.}
+\fi
+
+\RequirePackage{amsmath,bm}
+
+\makeatletter
+\def\my@math#1#2{
+  \global\mathcode#1="8000%"
+  \begingroup\catcode#1=\active
+  \lccode`~=#1%
+  \lowercase{\def\x{\gdef~{\ensuremath{#2}}}}%
+  \expandafter\endgroup\x
+}
+\def\my@@getdelcode#1{%
+  \let\next\relax
+  \ifx#1\delimiter\let\next\my@@getdelcode@d
+  \else\ifx#1\protect\let\next\my@@getdelcode@pr\fi\fi
+  \next
+}
+\def\my@@getdelcode@pr#1{%
+  \expandafter\expandafter\expandafter\my@@getdelcode@d\expandafter\@gobble#1\relax
+}
+\def\my@@getdelcode@d#1\relax{%
+  \@tempcnta#1 \@tempcntb\@tempcnta
+  \divide\@tempcntb"1000 \xdef\d@small{\the\@tempcntb}%
+  \divide\@tempcntb"1000 \multiply\@tempcntb"1000000
+  \xdef\d@code{\the\numexpr\@tempcnta-\@tempcntb}%
+}
+\def\my@mathd#1#2{%x
+  {\let\protect\relax\expandafter\my@@getdelcode#2\relax
+  \global\mathcode#1=\d@small\relax\global\delcode#1=\d@code\relax}%"
+}
+
+% greeks
+\my@math{"00393}{\Gamma                  }%"
+\my@math{"00394}{\Delta                  }%"
+\my@math{"00397}{\mathrm{\char72}        }%"
+\my@math{"00398}{\Theta                  }%"
+\my@math{"0039A}{\mathrm{\char75}        }%"
+\my@math{"0039B}{\Lambda                 }%"
+\my@math{"0039E}{\Xi                     }%"
+\my@math{"003A0}{\Pi                     }%"
+\my@math{"003A3}{\Sigma                  }%"
+\my@math{"003A4}{\Tau                    }%"
+\my@math{"003A5}{\Upsilon                }%"
+\my@math{"003A6}{\Phi                    }%"
+\my@math{"003A8}{\Psi                    }%"
+\my@math{"003A9}{\Omega                  }%"
+\my@math{"003B1}{\alpha                  }%"
+\my@math{"003B2}{\beta                   }%"
+\my@math{"003B3}{\gamma                  }%"
+\my@math{"003B4}{\delta                  }%"
+\ifdefined\varepsilon
+  \my@math{"003B5}{\varepsilon             }%"
+\else
+  \my@math{"003B5}{\epsilon                }%"
+\fi
+\my@math{"003F5}{\epsilon                }%"
+\my@math{"003B6}{\zeta                   }%"
+\my@math{"003B7}{\eta                    }%"
+\my@math{"003B8}{\theta                  }%"
+\my@math{"003B9}{\iota                   }%"
+\my@math{"003BA}{\kappa                  }%"
+\my@math{"003BB}{\lambda                 }%"
+\my@math{"003BC}{\mu                     }%"
+\my@math{"003BD}{\nu                     }%"
+\my@math{"003BE}{\xi                     }%"
+\my@math{"003BF}{o                       }%"
+\my@math{"003C0}{\pi                     }%"
+\my@math{"003C1}{\rho                    }%"
+\my@math{"003C3}{\sigma                  }%"
+\my@math{"003C4}{\tau                    }%"
+\my@math{"003C5}{\upsilon                }%"
+\my@math{"003C6}{\varphi                 }%"
+\my@math{"003D5}{\phi                    }%"
+\my@math{"003C7}{\chi                    }%"
+\my@math{"003C8}{\psi                    }%"
+\my@math{"003C9}{\omega                  }%"
+
+% key `
+\my@math{"02260}{\ne                       }%"
+\my@math{"02252}{\fallingdotseq            }%"
+
+% key 1
+\my@math{"000AC}{\neg                      }%"
+\my@math{"025B3}{\triangle                 }%"
+
+% key 2
+\my@math{"02205}{\emptyset                 }%" 空集合はこっちが好み
+\my@math{"02286}{\subseteq                 }%"
+
+% key 3
+\my@math{"02220}{\angle                    }%"
+\my@math{"0223D}{\backsim                  }%"
+
+% key 4
+\my@math{"0221E}{\infty                    }%"
+\my@math{"02202}{\partial                  }%"
+
+% key 5
+\my@math{"02294}{\sqcup                    }%"
+
+% key 6
+\my@math{"02228}{\vee                      }%"
+\my@math{"0222A}{\cup                      }%"
+
+% key 7
+\my@math{"02227}{\wedge                    }%"
+\my@math{"02229}{\cap                      }%"
+
+% key 8
+\my@math{"02135}{\aleph                    }%"
+\my@math{"02293}{\sqcap                    }%"
+
+% key -
+\my@math{"02245}{\cong                     }%"
+\my@math{"02243}{\simeq                    }%"
+
+% key =
+\my@math{"02261}{\equiv                    }%"
+\my@math{"0223C}{\sim                      }%"
+\my@math{"000D7}{\times                    }%"
+\my@math{"000F7}{\div                      }%"
+
+% key q
+\my@math{"02282}{\subset                   }%"
+\my@math{"0211A}{\mathbb{\char81}          }%"
+
+% key e
+\my@math{"02203}{\exists                   }%"
+
+% key r
+\my@math{"0211D}{\mathbb{\char82}          }%"
+
+% key t
+\my@math{"022A4}{\top                      }%"
+
+% key i
+\my@math{"02208}{\in                       }%"
+
+% key o
+\my@math{"02209}{\notin                    }%"
+
+% key a
+\my@math{"02200}{\forall                   }%"
+
+% key h
+\my@math{"0210D}{\mathbb{\char72}          }%"
+
+% key j
+\my@math{"022A6}{\vdash                    }%"
+\my@math{"022A9}{\Vdash                    }%"
+\my@math{"0221A}{\sqrt}%"
+
+% key ;
+\my@math{"02234}{\therefore                }%"
+\my@math{"02235}{\because                  }%"
+
+% key '
+\my@math{"000B1}{\pm                       }%"
+\my@math{"02213}{\mp                       }%"
+
+% key z
+\my@math{"02124}{\mathbb{\char90}          }%"
+
+% key x
+\my@math{"000B7}{\cdot                     }%"
+
+% key c
+\my@math{"02102}{\mathbb{\char67}          }%"
+
+% key b
+\my@math{"022A5}{\bot                      }%"
+
+% key n
+\my@math{"02115}{\mathbb{\char78}          }%"
+
+% key m
+\my@math{"022A7}{\vDash                    }%"
+
+% key ,
+\my@math{"02264}{\leq                      }%"
+\my@math{"02266}{\leqq                     }%"
+
+% key .
+\my@math{"02265}{\geq                      }%"
+\my@math{"02267}{\geqq                     }%"
+
+% arrows
+\my@math{"02190}{\leftarrow                }%"
+\my@math{"021D0}{\Leftarrow                }%"
+\my@math{"02191}{\uparrow                  }%"
+\my@math{"021D1}{\Uparrow                  }%"
+\my@math{"02192}{\rightarrow               }%"
+\my@math{"021D2}{\Rightarrow               }%"
+\my@math{"02193}{\downarrow                }%"
+\my@math{"021D3}{\Downarrow                }%"
+\my@math{"02194}{\leftrightarrow           }%"
+\my@math{"021D4}{\Leftrightarrow           }%"
+
+% delimiters
+\my@mathd{"02308}{\lceil                    }%"
+\my@mathd{"0230A}{\lfloor                   }%"
+\my@mathd{"02309}{\rceil                    }%"
+\my@mathd{"0230B}{\rfloor                   }%"
+\my@mathd{"02191}{\uparrow                  }%"
+\my@mathd{"021D1}{\Uparrow                  }%"
+\my@mathd{"02193}{\downarrow                }%"
+\my@mathd{"021D3}{\Downarrow                }%"
+\my@mathd{"027E8}{\langle                   }%"
+\my@mathd{"027E6}{\llbracket                }%"
+\my@mathd{"027E9}{\rangle                   }%"
+\my@mathd{"027E7}{\rrbracket                }%"
+\my@mathd{"02016}{\Vert                     }%"
+
+
+\catcode`☡=13
+\protected\def☡{\begingroup\leavevmode
+  \setbox2=\hbox{\font\manfnt=manfnt at.65\dimexpr\f@size pt\manfnt\char127}%
+  \smash{\raise\ht2\copy2}\endgroup\ignorespaces}
+
+\endinput
