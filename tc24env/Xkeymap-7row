@@ -260,38 +260,23 @@ xkb_types "55y9003" {
 
     type "ONE_LEVEL" {
         modifiers= none;
-        level_name[Level1]= "Any";
-    };
-    type "TWO_LEVEL" {
-        modifiers= Shift;
-        map[Shift]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
     };
     type "ALPHABETIC" {
         modifiers= Shift+Lock;
         map[Shift]= Level2;
         map[Lock]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Caps";
     };
     type "PC_CONTROL_LEVEL2" {
         modifiers= Control;
         map[Control]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Control";
     };
     type "PC_ALT_LEVEL2" {
         modifiers= Alt;
         map[Alt]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Alt";
     };
     type "PC_SUPER_LEVEL2" {
         modifiers= Super;
         map[Super]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Super";
     };
     type "CTRL+ALT" {
         modifiers= Shift+Control+Alt+LevelThree;
@@ -301,11 +286,6 @@ xkb_types "55y9003" {
         map[Shift+LevelThree]= Level4;
         preserve[Shift+LevelThree]= Shift;
         map[Control+Alt]= Level5;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-        level_name[Level5]= "Ctrl+Alt";
     };
 };
 
@@ -674,10 +654,6 @@ xkb_compatibility "55y9003" {
 xkb_symbols "us+math+us(altgr-intl)" {
 
     groupsclamp;
-    name[group1]="English (US)";
-    name[group2]="Mathematical Symbols";
-    name[group3]="English (intl.)";
-    //name[group4]="test";
 
     key  <ESC> {
         symbols[Group1]= [          Escape,          Escape ],
@@ -966,7 +942,7 @@ xkb_symbols "us+math+us(altgr-intl)" {
         symbols[Group3]= [              mu,              mu ]
     };
     key <AB08> {
-        type[group3]= "TWO_LEVEL",
+        type[group3]= "ALPHABETIC",
         symbols[Group1]= [           comma,            less ],
         symbols[Group2]= [           U2264,           U2266 ],
         symbols[Group3]= [        ccedilla,        Ccedilla ]
