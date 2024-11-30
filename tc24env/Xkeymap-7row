@@ -255,11 +255,16 @@ xkb_keycodes "55y9003" {
 };
 
 xkb_types "55y9003" {
-    include "complete"
+    //include "complete"
     virtual_modifiers ScrollLock,NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,AltGr,Meta,Super;
 
     type "ONE_LEVEL" {
         modifiers= none;
+    };
+    type "TWO_LEVEL" {
+        modifiers = Shift+Lock;
+        map[Shift] = Level2;
+        map[Shift+Lock] = Level2;
     };
     type "ALPHABETIC" {
         modifiers= Shift+Lock;
