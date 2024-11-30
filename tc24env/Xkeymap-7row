@@ -255,7 +255,7 @@ xkb_keycodes "55y9003" {
 };
 
 xkb_types "55y9003" {
-    //include "complete"
+    include "complete"
     virtual_modifiers ScrollLock,NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,AltGr,Meta,Super;
 
     type "ONE_LEVEL" {
