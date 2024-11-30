@@ -1,0 +1,350 @@
+%#!luajitlatex -shell-escape kbtable
+\RequirePackage{luatex85}
+\documentclass[landscape]{article}
+\usepackage{fontspec,unicode-math,xcolor,graphicx}
+\usepackage{fontawesome}
+\pagestyle{empty}
+\newdimen\DX
+\DX=1.35\baselineskip
+\paperwidth=30\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\paperwidth20pt
+\paperheight=20\baselineskip
+\advance\paperheight20pt
+\usepackage[margin=10pt]{geometry}
+\def\pgfsysdriver{pgfsys-pdftex.def}
+\setmainfont[RawFeature=-tlig,BoldItalicFont=iosevkaextraboldextended, BoldFont=iosevkaextrabold,ItalicFont=iosevkamediumextended]{iosevkamedium}
+\setsansfont[RawFeature=-tlig]{DejaVu Sans}
+\setmonofont{lmmonoltcond10-regular}
+\setmathfont{XITS Math}
+\newfontfamily\JP{GenEiMGothic2-Regular.ttf}
+%\newfontfamily\COND{iosevkaslab}
+\let\COND\relax
+\def\FORECOLOR{black}
+\def\LINECOLOR{black!80!white}
+\definecolor{usintl}{RGB}{191,60,0}
+\definecolor{switch}{RGB}{0,90,255}
+\definecolor{enter}{RGB}{191,228,255}
+\definecolor{base_blue}{RGB}{191,228,255}
+\definecolor{base_red}{RGB}{255,202,191}
+\advance\paperheight4\DX
+\advance\textheight4\DX
+\ifdefined\ROW\else\def\ROW{7}\fi
+  
+\def\DXV#1#2{\textcolor{#1}{\normalsize\hbox to1em{\strut\hss\smash{\normalsize\rm #2}\hss}}}
+\begin{document}
+\sf\parindent0pt
+
+\makeatletter
+\def\KG{\K}
+\def\K{\@ifnextchar[{\k@}{\k@[0]}}%]
+\def\k@[#1]#2#3#4#5#6#7{%
+\fbox{\vbox{\hsize=2\DX
+  \advance\hsize#1\dimexpr\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+  \noindent{\large\strut}\DXV{\FORECOLOR}{\rm\Large\itshape\strut#3}\hfill \DXV{usintl}{#7}\DXV{switch}{#5}\\
+  {\large\strut}\DXV{\FORECOLOR}{\rm\itshape\Large#2}\hfill\DXV{usintl}{#6}\DXV{switch}{#4}%
+}}}\ignorespaces}
+
+\def\KS#1#2#3#4#5#6{\K{\kern-1em\rlap{#1}}{\kern-1.0em\rlap{\color{switch}#2}}{}{}{}{}{}\ignorespaces}
+\def\KA#1#2#3#4#5#6{\K{\kern-1em\rlap{#1}}{\kern-1.0em\rlap{\color{usintl}#2}}{}{}{}{}{}\ignorespaces}
+\def\KW{\K}
+
+\def\W#1#2{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\smash{%
+    \raisebox{-.5\DX}{\hbox to\hsize{\normalsize\rm\hfil\textcolor{\LINECOLOR}{#2}\hfil}}}\\\ \strut
+}}}%
+\ignorespaces}
+\def\WW{\W}
+\def\WG{\W}
+
+\def\X#1#2{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\hfill\Large\strut\rm\textcolor{\LINECOLOR}{#2}\hfill\null}}}%
+\ignorespaces}
+
+\def\XF{\@ifnextchar[{\xf@}{\xf@[1.8]}}%]
+\def\xf@[#1]{\@ifnextchar({\xf@@[#1]}{\xf@@[#1]()}}%)
+\def\xf@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut\rm\textcolor{\LINECOLOR}{\small\rlap{#3}\hfill\DXV{switch}{\JP #2}}\null}}}%
+\ignorespaces}
+
+\def\XFA{\XF}
+\def\XFG{\XF}
+\let\orig@XF=\xf@@
+
+\def\XDS{\@ifnextchar({\xds@}{\xds@()}}%)
+\def\xds@(#1)#2{\@ifnextchar({\xds@@(#1){#2}}{\xds@@(#1){#2}()}}%)
+\def\xds@@(#1)#2(#3)#4{\hbox{\offinterlineskip
+  \setbox0=\hbox{\XF{}}\vbox{\hsize=\wd0\XF(#1){#2}%
+    \\[-\fboxrule]\XF(#3){#4}}}\ignorespaces}
+
+\def\XDSA{\@ifnextchar({\xdsa@}{\xdsa@()}}%)
+\def\xdsa@(#1)#2{\@ifnextchar({\xdsa@@(#1){#2}}{\xdsa@@(#1){#2}()}}%)
+\def\xdsa@@(#1)#2(#3)#4{\hbox{\offinterlineskip
+  \setbox0=\hbox{\XF{}}\vbox{\hsize=\wd0\XFA(#1){#2}%
+    \\[-\fboxrule]\XF(#3){#4}}}\ignorespaces}
+
+\def\XD{\@ifnextchar[{\xd@}{\xd@[2]}}%]
+\def\xd@[#1]{\@ifnextchar({\xd@@[#1]}{\xd@@[#1]()}}%)
+\def\xd@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut\rm\textcolor{\LINECOLOR}{\hfill{\small
+	#3}\hfill}\null\\[\dimexpr\fboxrule+2\fboxsep-\lineskip]\strut\hfill\DXV{switch}{\small#2}}}}%
+\ignorespaces}
+
+\def\AC#1{%
+  {\fboxsep=0pt\fbox{\setbox0=\hbox{Äp}\vrule height\ht0 depth\dp0width0pt%
+     \smash{\hbox to .6em{\hss\char"#1\hss}}}}%
+}
+
+\def\SY#1{\textsf{\smash{\raisebox{-.2ex}{\Large#1}}}}
+\color{\LINECOLOR}
+
+\def\AX#1#2{\smash{%
+  \raisebox{.35\DX}{\rlap{\textcolor{\FORECOLOR}{\fboxsep.1em\fbox{#1}}}}%
+  \raisebox{-.35\DX}{\rlap{#2}}%
+}}
+
+\def\TRP{%
+\kern-\dimexpr\DX+\fboxsep+\fboxrule
+\smash{\raise2\baselineskip\hbox to0pt{%
+  \hss\JP\textcolor{black}{\LARGE$\vcenter{\hbox{●}}$}\hss}}%
+\smash{\raise2\baselineskip\hbox to0pt{%
+  \hss\JP\textcolor{\LINECOLOR}{\LARGE$\vcenter{\hbox{○}}$}\hss}}%
+\smash{\raise2.11\baselineskip\hbox to0pt{%
+  \hss\JP\textcolor{red}{\large$\vcenter{\hbox{●}}$}\hss}}%
+\kern\dimexpr\DX+\fboxsep+\fboxrule
+}
+\def\ONEPAGE{%
+\hbox to29.83\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+\XD[1.8](\raisebox{0.9\height}{\font\m=manfnt at0.7em\m\char127}){Esc}\hfill
+\XF(①){F1}\XF(②){F2}\XF(③){F3}\XF(④){F4}\hfill
+\XF(⑤){F5}\XF(⑥){F6}\XF(⑦){F7}\XF(⑧){F8}\hfill
+\XDS{PrtSc}(⑨){F9}\XDSA{\AX{Pause}{\COND\textcolor{\FORECOLOR}{NumLk}}}(⑩){F10}%
+\XDSA{\AX{Break}{\textcolor{\FORECOLOR}{ScrLk}}}(\char"2603){F11}\XDS{Insert}{F12}\hfill
+\XD[1.8]{Delete}%
+\XDS{Home}{End}\XDS{PgUp}{PgDn}
+}
+\par\kern2pt
+
+\KG{\char`\`}{\char`\~}{≠}{≒}{\AC{02CB}}{\AC{02DC}}
+\KG{1}{!}{¬}{△}{¡}{¹}
+\KG{2}{@}{∅}{⊆}{²}{\AC{02D8}}
+\KG{3}{\#}{\JP ∽}{∠}{³}{\AC{02DD}}
+\KG{4}{\$}{∞}{∂}{¤}{£}
+\KG{5}{\%}{\scalebox{0.7}[1]{‰}}{⊔}{€}{\AC{02DA}}
+\KG{6}{\char`\^}{∨}{∪}{¼}{\AC{02C6}}
+\KG{7}{\&}{∧}{∩}{½}{\AC{02C7}}
+\KG{8}{$*$}{ℵ}{⊓}{¾}{\AC{02DB}}
+\KG{9}{(}{⌈}{⌊}{‘}{\AC{02D9}}
+\KG{0}{)}{⌉}{⌋}{’}{\AC{002E}}
+\K{-}{\_}{≅}{≃}{¥}{\AC{00AF}}
+\K{=}{+}{≡}{∼}{×}{÷}
+\W{3.83}{Backspace}
+
+\kern-5.5pt
+\null
+\W{3}{Tab}
+\KW{\COND\normalsize\fboxsep=.1em\fbox{\JP 漢}}{Q}{⊂}{ℚ}{}{Ä}
+\K{}{W}{ω}{Ω}{}{Å}
+\KG{}{E}{ε}{∃}{}{É}
+\KG{}{R}{ρ}{ℝ}{®}{}
+\KG{}{T}{τ}{⊤}{}{Þ}
+\KG{}{Y}{η}{Η}{}{Ü}
+\K{}{U}{υ}{Υ}{}{Ú}
+\K{}{I}{ι}{∈}{}{Í}
+\K{}{O}{ο}{∉}{}{Ó}
+\K{}{P}{π}{Π}{}{Ö}
+\K{[}{\{}{$〈$}{⟦}{«}{“}
+\K{]}{\}}{$〉$}{⟧}{»}{”}
+\K[.83]{\char`\\}{|}{‖}{␣}{¬}{¦}
+
+\kern-5.5pt
+\null
+\W{3.5}{\textcolor{\FORECOLOR}{\bfseries Ctrl}}
+\KW{\COND\normalsize\fboxsep=.1em\fbox{\JP 英}}{A}{α}{∀}{}{Á}
+\K{}{S}{σ}{Σ}{ß}{§}
+\K{}{D}{δ}{Δ}{}{Ð}
+\KG{}{F}{φ}{Φ}{ϕ}{Φ}
+\K{}{G}{γ}{Γ}{}{}
+\K{}{H}{θ}{Θ}{ℍ}{}
+\KG{}{J}{⊦}{⊩}{\raisebox{.2ex}{\mathversion{bold}\scriptsize$\sqrt{\phantom{H}}$\,}}{}
+\KG{}{K}{κ}{Κ}{}{Œ}
+\K{}{L}{λ}{Λ}{}{Ø}
+\KG{;}{:}{∴}{∵}{¶}{°}
+\K{'}{"}{±}{∓}{\AC{02CA}}{\AC{00A8}}
+\WG{4.33}{Enter}
+
+\kern-5.5pt
+\null
+\W{4.5}{Shift}
+\K{}{Z}{ζ}{ℤ}{}{Æ}
+\KG{}{X}{ξ}{Ξ}{ϵ}{·}
+\K{}{C}{χ}{ℂ}{©}{¢}
+\K{}{V}{ψ}{Ψ}{}{}%
+\KG{}{B}{β}{⊥}{}{}
+\TRP
+\K{}{N}{ν}{ℕ}{}{Ñ}
+\K{}{M}{μ}{⊧}{µ}{}
+\K{,}{<}{≤}{≦}{}{Ç}
+\K{.}{>}{≥}{≧}{}{\AC{00B8}}
+\K{/}{?}{↔}{⇔}{¿}{\AC{002F}}
+\W{5.33}{Shift}
+
+\kern-5.5pt
+\null
+\W{2}{Fn}
+\W{2.50}{Ctrl}
+\WW2{Super}%
+\W2{Alt}
+\W{10}{}
+\KS{\COND\normalsize\fboxsep=.1em\itshape\fbox{\JP 英}}%
+  {\bfseries\normalsize Switch}{}{}{}{}
+\KA{\COND\normalsize\fboxsep=.1em\upshape\fbox{Compose}}%
+  {\bfseries\normalsize AltGr}{}{}{}{}
+\W2{Ctrl}
+\smash{\raisebox{\dimexpr\baselineskip+.2pt}{\XF[1.78](\large\faStepBackward){%
+  \smash{\Large\color{\FORECOLOR}$\vcenter{\hbox{\oalign{\hss ◇\hss\crcr\hss ◆\hss}}}$}}}}%
+\smash{\raisebox{\dimexpr\baselineskip+.2pt}{\XFG[1.77]($\vcenter{\hbox{\oalign{\hss$⇑$\hss\crcr\hss$↑$\hss}}}$){\Large ↑}}}%
+\smash{\raisebox{\dimexpr\baselineskip+.2pt}{\XF[1.78](\large\faStepForward){%
+  \smash{\Large\color{\FORECOLOR}$\vcenter{\hbox{\oalign{\hss □\hss\crcr\hss ■\hss}}}$}}}}%
+
+\kern-17pt
+\null
+\hskip24.5\dimexpr\DX+\fboxsep+\fboxrule\relax
+\XFG[1.78]($\vcenter{\hbox{\oalign{\hss$⇐$\hss\crcr\hss$←$\vphantom{↑}\hss}}}$){\Large ←}
+\XFG[1.77]($\vcenter{\hbox{\oalign{\hss$⇓$\hss\crcr\hss$↓$\hss}}}$){\Large ↓}
+\XFG[1.78]($\vcenter{\hbox{\oalign{\hss$⇒$\hss\crcr\hss$→$\vphantom{↑}\hss}}}$){\Large →}
+\newpage}
+
+\ONEPAGE
+
+%===========================================
+\def\k@[#1]#2#3#4#5#6#7{%
+\fbox{\vbox{\hsize=2\DX\centering
+  \advance\hsize#1\dimexpr\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+  \noindent{\large\strut}\DXV{switch}{\rm\Large\itshape\strut\smash{\raisebox{-.3ex}{#5}}}\\
+  {\large\strut}\DXV{switch}{\rm\itshape\Large\smash{\raisebox{-.3ex}{#4}}}%
+}}}\ignorespaces}
+
+\def\KS#1#2#3#4#5#6{%
+\fcolorbox{\LINECOLOR}{base_blue}{\vbox{\hsize=2\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\smash{%
+    \raisebox{-.5\DX}{\clap{\normalsize\rm\textcolor{\FORECOLOR}{#2}}}}\\\ \strut
+}}}%
+\ignorespaces}
+
+\def\KA#1#2#3#4#5#6{\W{2}{}}
+
+\def\W#1#2{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\\\ \strut
+}}}%
+\ignorespaces}
+\def\xd@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\Large\strut\rm\textcolor{switch}{\smash{\raisebox{-2ex}{#2}}}\\[\dimexpr\fboxrule+2\fboxsep-\lineskip]\strut}}}%
+\ignorespaces}
+
+\def\xf@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut\rm\textcolor{\LINECOLOR}{\textcolor{switch}{\smash{\raisebox{-.1ex}{\scalebox{0.9}{\JP #2}}}}}}}}%
+\ignorespaces}
+\let\TRP=\relax
+
+\ONEPAGE
+
+%===========================================
+\def\k@[#1]#2#3#4#5#6#7{%
+\fbox{\vbox{\hsize=2\DX\centering
+  \advance\hsize#1\dimexpr\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+  \noindent{\large\strut}\DXV{usintl}{\rm\Large\itshape\strut\smash{\raisebox{-.2ex}{#7}}}\\
+  {\large\strut}\DXV{usintl}{\rm\itshape\Large\smash{\raisebox{-.5ex}{#6}}}%
+}}}\ignorespaces}
+
+\def\KA#1#2#3#4#5#6{%
+\fcolorbox{\LINECOLOR}{base_red}{\vbox{\hsize=2\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\smash{%
+    \raisebox{-.5\DX}{\clap{\normalsize\rm\textcolor{\FORECOLOR}{#2}}}}\\\ \strut
+}}}%
+\ignorespaces}
+
+\def\KS#1#2#3#4#5#6{\W{2}{}}
+
+\def\W#1#2{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\\\ \strut
+}}}%
+\ignorespaces}
+\def\xd@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut\rm\textcolor{\LINECOLOR}{\hfill{\small}\hfill}\null
+  \\[\dimexpr\fboxrule+2\fboxsep-\lineskip]\strut\hfill\DXV{switch}{\small}}}}%
+\ignorespaces}
+\def\xf@@[#1](#2)#3{%
+\fbox{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut}}}%
+\ignorespaces}
+
+\ONEPAGE
+
+%===========================================
+\def\KG#1#2#3#4#5#6{\fcolorbox{\LINECOLOR}{gray}{\vbox{\hsize=2\DX\centering
+  \advance\hsize0\dimexpr\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+  \noindent\large\strut\\\large\strut
+}}}\ignorespaces}
+
+\def\k@[#1]#2#3#4#5#6#7{%
+\fbox{\vbox{\hsize=2\DX\centering
+  \advance\hsize#1\dimexpr\dimexpr\DX+\fboxsep+\fboxrule\relax{%
+  \noindent\large\strut\\\large\strut
+}}}\ignorespaces}
+
+\def\KA#1#2#3#4#5#6{%
+\fbox{\vbox{\hsize=2\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{\centering%
+  \noindent\large\strut\smash{%
+    \raisebox{-.5\DX}{\normalsize\rm\textcolor{\FORECOLOR}{\kern-10mm#1\kern-10mm}}}\\\ \strut
+}}}%
+\ignorespaces}
+
+\def\XFA(#1)#2{\orig@XF[1.8](#1){\def\AX##1##2{\textcolor{\FORECOLOR}{\fboxsep.1em\fbox{##1}}}#2}}
+
+\let\KS=\KA
+
+\let\KW=\KS
+
+\def\WW#1#2{%
+\fcolorbox{\LINECOLOR}{base_blue}{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\smash{%
+    \raisebox{-.5\DX}{\hbox to\hsize{\normalsize\rm\hfil\textcolor{\FORECOLOR}{#2}\hfil}}}\\\ \strut
+}}}%
+\ignorespaces}
+\def\WG#1#2{%
+\fcolorbox{\LINECOLOR}{gray}{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\large\strut\\\ \strut
+}}}%
+\ignorespaces}
+\def\XFG[#1](#2)#3{%
+\fcolorbox{\LINECOLOR}{gray}{\vbox{\hsize=#1\dimexpr\DX+\fboxsep+\fboxrule\relax\centering
+\advance\hsize-2\fboxrule\advance\hsize-2\fboxsep{%
+  \noindent\null\Large\strut}}}%
+\ignorespaces}
+
+\ONEPAGE
+\end{document}
