@@ -1,4 +1,4 @@
-tc14-slide.pdf:
+tc14-slide.pdf
   北川 弘典，「LuaTeX-jaにおける縦組」，
   TeXユーザの集い2014 (https://texconf14.tumblr.com/)，2014-11-08．
   このファイルの元の場所：
@@ -31,4 +31,9 @@ ot20ltja.pdf
 tc23nptex.pdf
   北川 弘典，「npTeX の開発（方針）について」，
   TeXConf 2023 (https://texconf2023.tumblr.com/)，2023-11-11．
+
+tc24env/tc24env.pdf
+  北川 弘典，「私の TeX 入力法」，
+  TeXConf 2024 (https://texconf2024.tumblr.com/)，2024-11-30．
+
 
